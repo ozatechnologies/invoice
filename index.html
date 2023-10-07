@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice Verification</title>
+    <style>
+        /* Add your CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .container {
+            text-align: center;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .input-container {
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            width: 200px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #invoice-message {
+            font-size: 24px;
+            margin-top: 20px;
+        }
+        #invoice-uid {
+            font-size: 36px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        #totals {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        #copyright {
+            font-size: 12px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="input-container">
+            <input type="text" id="invoice-number" placeholder="Enter Invoice Number">
+            <button onclick="generateSuccessfulInvoice()">Verify Invoice</button>
+        </div>
+        <div id="invoice-message"></div>
+        <div id="invoice-uid">Invoice Verification UID: <span id="uid">1001</span></div>
+        <div id="totals">
+            TOTAL Invoice Verified: <span id="total-invoices">1,500</span><br>
+            Total Rs. Of invoice verified at syst: <span id="total-amount">37,67,182</span> Rs
+        </div>
+        <div id="copyright">
+            &copy; <a href="http://syst.rf.gd" target="_blank">http://syst.rf.gd</a>
+        </div>
+    </div>
+
+    <script>
+        function generateSuccessfulInvoice() {
+            const invoiceNumber = document.getElementById('invoice-number').value;
+            if (invoiceNumber) {
+                document.getElementById('invoice-message').innerHTML = `
+                    <img src="https://i.pinimg.com/originals/4a/10/e3/4a10e39ee8325a06daf00881ac321b2f.gif" alt="SUCCESSFUL">
+                    <strong>SUCCESSFUL Invoice Generated</strong>`;
+                
+                // Update totals
+                setTimeout(() => {
+                    const uidCounter = parseInt(document.getElementById('uid').innerText);
+                    const totalInvoices = parseInt(document.getElementById('total-invoices').innerText.replace(/,/g, ''));
+                    const totalAmount = parseInt(document.getElementById('total-amount').innerText.replace(/,/g, ''));
+
+                    // Increase invoice count and total amount randomly between 500 and 1000
+                    const randomAmount = Math.floor(Math.random() * (1000 - 500 + 1)) + 500;
+                    const updatedTotalInvoices = totalInvoices + 1;
+                    const updatedTotalAmount = totalAmount + randomAmount;
+
+                    document.getElementById('uid').innerText = uidCounter + 1;
+                    document.getElementById('total-invoices').innerText = updatedTotalInvoices.toLocaleString();
+                    document.getElementById('total-amount').innerText = updatedTotalAmount.toLocaleString();
+                }, 32000); // Update every 32 seconds
+            }
+        }
+    </script>
+</body>
+</html>
